@@ -6,7 +6,72 @@
 }
 
 body {
+    background: url(images/landscape.jpg) no-repeat center center fixed;
+}
+
+/* Start: User input */
+
+.search-wrapper {
     display: flex;
     flex-flow: column-wrap;
     justify-content: center;
 }
+
+.display-day {
+    width: 90%;
+    max-width: 29em;
+    backdrop-filter: blur(10px);
+    box-shadow: 5px 5px 9px rgb(17,17,17);
+    opacity: 0.7;
+    margin: auto;
+    border-radius: 20px;
+    padding: 10px 35px 35px 35px;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.dt-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 12px 0px 12px 0px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    gap: 200px;
+}
+
+#date, #today {
+    color: black;
+    font-weight: bold;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search input {
+    outline: none;
+    border: 3px solid rgb(189, 95, 189);
+    background: none;
+    color: black;
+    padding: 10px 25px;
+    height: 60px;
+    border-radius: 30px;
+    flex: 1;
+    margin-right: 16px;
+    font-size: 18px;
+}
+
+.search button {
+    border: none;
+    background: none;
+    width: 4em;
+    height: 4em;
+    cursor: pointer;
+}
+
+.search button img {
+    width: 46px;
+}
+
+/* Slut: User input */
