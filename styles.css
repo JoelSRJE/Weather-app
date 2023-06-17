@@ -9,7 +9,7 @@ body {
     background: url(images/landscape.jpg) no-repeat center center fixed;
 }
 
-/* Start: User input */
+/* Start: User input "display-day */
 
 .search-wrapper {
     display: flex;
@@ -74,4 +74,8 @@ body {
     width: 46px;
 }
 
-/* Slut: User input */
+/* Slut: User input "display-day" */
+
+::placeholder {
+    color: black;
+}

@@ -15,8 +15,8 @@
             <!--Asks user for input-->
             <div class="display-day">
                 <div class="dt-container">
-                    <p id="date">2023-06-17</p>
-                    <p id="today">Saturday</p>
+                    <p id="date"></p>
+                    <p id="today"></p>
                 </div>
                 <div class="search">
                     <input type="text" id="search" placeholder="Enter city name" required>
@@ -24,7 +24,14 @@
                 </div>
 
                 <!--Displays fetched information-->
-
+                <div class="display-weather">
+                    <div class="icon-container">
+                        <img src="" class="weather-icon">
+                        <div id="time"></div>
+                    </div>
+                    <h2></h2>
+                    <h3></h3>
+                </div>
             </div>
 
             <!--Shows humidity and windspeed-->
@@ -33,5 +40,6 @@
         </section>
         
         <script src="main.js" async defer></script>
+        <script src="ToD.js"></script>
     </body>
 </html>
