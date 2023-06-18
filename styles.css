@@ -11,16 +11,21 @@ body {
 
 /* Start: User input "display-day */
 
+.search-wrapper {
+    display: flex;
+    flex-direction: row;
+}
 
 .display-day {
-    max-width: 29em;
+    margin-left: 40%;
+    margin-top: 10%;
+    width: 29em;
+    max-height: 30.5em;
+    border-radius: 50px;
+    padding:  35px 40px 35px;
+    text-align: center; 
     backdrop-filter: blur(10px);
     box-shadow: 5px 5px 9px rgb(17,17,17);
-    margin: auto;
-    border-radius: 50px;
-    padding: 10px 35px 35px 35px;
-    text-align: center;
-    margin-top: 10%;
 }
 
 .dt-container {
@@ -86,6 +91,30 @@ body {
 }
 /* Slut: User input "display-day" */
 
+/* Start: Generated forecast cards */
+
+.forecast-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 29em;
+    height: 30.5em;
+    margin-right: 60%;
+    margin-top: 10%;
+}
+
+.forecast-card {
+    margin-top: 1.3em;
+    margin-left: 1em;
+    width: 18em;
+    height: 6em;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 5px 5px 9px rgb(17,17,17);
+}
+
+/* Slut: Generated forecast cards */
+
 /* Start: Generated divs etc */
 
 .row {
@@ -96,8 +125,9 @@ body {
     align-items: center;
     justify-content: space-evenly;
     height: 4em;
-    max-width: 29em;
-    margin: 1em auto;
+    width: 27.375em;
+    margin-left: 40%;
+    margin-top: 1em;
 }
 
 .row img {
@@ -113,6 +143,7 @@ body {
 }
 
 /* Slut: Generated divs etc */
+
 
 
 ::placeholder {

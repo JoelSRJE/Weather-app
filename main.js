@@ -1,9 +1,9 @@
-// APIn
+// Openweathermap key
 const apiKey = "c8c5f344fe960ccc44b64a488a1a0115";
 
-// URL for user input
+// Openweather URL
 const apiUrl =
-  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q="; 
 
 // DOM
 const search = document.querySelector(".search-container input");
@@ -11,13 +11,17 @@ const weatherImage = document.querySelector(".weather-image")
 const searchButton = document.querySelector(".search-container button");
 const displayRows = document.querySelector(".display-rows");
 
+// Creates a div for the generated forecasts.
+const forecast_container = document.createElement("div");
+forecast_container.classList.add("forecast-container")
+
 // Fetches data from openweather
 async function getWeather(city) {
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
 
     let data = await response.json();
 
-    // 
+    // Updates city & temp, through the data from the api
     document.querySelector(".city").innerHTML = data.name;
     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°c";
 
@@ -107,20 +111,77 @@ async function getWeather(city) {
     document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
     document.querySelector(".pressure").innerHTML = data.main.pressure + "hPa";
     document.querySelector(".visibility").innerHTML = data.visibility;
+
 }
 
+// Weatherapi key
+const forecastApiKey = "8d53ddacbb5b4e9e94795200230906";
+
+// Weatherapi URL
+const weatherUrl = "http://api.weatherapi.com/v1/forecast.json?key=8d53ddacbb5b4e9e94795200230906";
+
+const searchWrapper = document.querySelector(".search-wrapper");
+
+async function getForecast(city) {
+forecast_container.innerHTML = "";
+
+const response = await fetch(weatherUrl + `&q="${city}"` + `&days=4&aqi=no&alerts=no`);
+
+let data = await response.json();
+
+
+searchWrapper.appendChild(forecast_container);
+
+  for (let i = 0; i < 4; i++) {
+  
+    const forecast_card = document.createElement("div");
+    forecast_card.classList.add("forecast-card");
+  
+    const forecast_img = document.createElement("img");
+    forecast_img.classList.add("forecast-img");
+    forecast_img.src = "";
+  
+    const forecast_day = document.createElement("div");
+    forecast_day.classList.add("forecast-day");
+  
+    const forecast_max = document.createElement("div");
+    forecast_max.classList.add("max-temp");
+    forecast_max.innerText = "Day | ";
+  
+    const forecast_min = document.createElement("div");
+    forecast_min.classList.add("min-temp");
+    forecast_min.innerText = "Night | ";
+  
+    //Appends
+    forecast_card.appendChild(forecast_img);
+    forecast_card.appendChild(forecast_day);
+    forecast_card.appendChild(forecast_max);
+    forecast_card.appendChild(forecast_min);
+    forecast_container.appendChild(forecast_card);
+  };
+
+
+
+};
 
 // Eventlistener for the button / input.
 let searchKey = document.getElementById("search");
 
-searchButton.addEventListener("click", () => {
-    getWeather(search.value);
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  getWeather(search.value);
+  getForecast(search.value);
+  
 });
 
 searchKey.addEventListener("keyup", (e) => {
-    e.preventDefault();
+    forecast_container.innerHTML = "";
+    displayRows.innerHTML = "";
 
     if (e.key === "Enter") {
+        e.preventDefault();
         getWeather(search.value)
+        getForecast(search.value);
     }
 });
