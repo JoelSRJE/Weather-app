@@ -40,7 +40,7 @@ function displayDate() {
 }
 
   // Updates time
-setInterval(displayTime, 1000);
+setInterval(displayTime, displayDate, 1000);
 
 updateDay();
 displayTime();

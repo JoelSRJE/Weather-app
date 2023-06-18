@@ -18,7 +18,7 @@
                     <p id="date"></p>
                     <p id="today"></p>
                 </div>
-                <div class="search">
+                <div class="search-container">
                     <input type="text" id="search" placeholder="Enter city name" required>
                     <button id="search-btn"><img src="images/searchIcon.png"></button>
                 </div>
@@ -26,17 +26,20 @@
                 <!--Displays fetched information-->
                 <div class="display-weather">
                     <div class="icon-container">
-                        <img src="" class="weather-icon">
+                        <img src="" class="weather-image">
                         <div id="time"></div>
                     </div>
-                    <h2></h2>
-                    <h3></h3>
+                    <h2 class="temp"></h2>
+                    <h3 class="city"></h3>
                 </div>
             </div>
+      
+            
+        </section>
 
-            <!--Shows humidity and windspeed-->
-
-            <!--Shows pressure and visibility-->
+        <section>
+            <!--Shows humidity windspeed, pressure and visibility-->
+            <ul class="display-rows"></ul>
         </section>
         
         <script src="main.js" async defer></script>
