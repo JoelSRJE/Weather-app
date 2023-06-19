@@ -14,7 +14,6 @@ function updateDay() {
   document.getElementById("today").innerText = dayList[day];
 }
 
-
 function displayTime() {
     let time = new Date();
     let hour = time.getHours();
@@ -40,8 +39,7 @@ function displayDate() {
 }
 
   // Updates time
-setInterval(displayTime, displayDate, 1000);
+setInterval(displayTime, 1000)
 
-updateDay();
-displayTime();
 displayDate();
+updateDay();

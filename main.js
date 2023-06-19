@@ -11,20 +11,16 @@ const weatherImage = document.querySelector(".weather-image")
 const searchButton = document.querySelector(".search-container button");
 const displayRows = document.querySelector(".display-rows");
 
-// Creates a div for the generated forecasts.
-const forecast_container = document.createElement("div");
-forecast_container.classList.add("forecast-container")
-
 // Fetches data from openweather
 async function getWeather(city) {
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
-
+    // Clears the console from previous data
+    console.clear();
     let data = await response.json();
 
     // Updates city & temp, through the data from the api
     document.querySelector(".city").innerHTML = data.name;
     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°c";
-
 
     // Switches the icons depending on weather
     if (data.weather[0].main == "Clouds") {
@@ -39,14 +35,12 @@ async function getWeather(city) {
         weatherImage.src = "images/mist.png";
       }
 
-
       // Wanted to try and create the elements that display values from the API
-
+      displayRows.innerHTML = "";
       const row_wrapper = document.createElement("div");
       row_wrapper.classList.add("row-wrap");
 
       // First Row
-
       const row_one = document.createElement("div");
       row_one.classList.add("row");
       row_wrapper.appendChild(row_one);
@@ -78,7 +72,6 @@ async function getWeather(city) {
       p_container_two.appendChild(third_p);
 
       //Second Row
-
       const row_two = document.createElement("div");
       row_two.classList.add("row");
       row_wrapper.appendChild(row_two);
@@ -111,57 +104,59 @@ async function getWeather(city) {
     document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
     document.querySelector(".pressure").innerHTML = data.main.pressure + "hPa";
     document.querySelector(".visibility").innerHTML = data.visibility;
-
 }
 
+const searchWrapper = document.querySelector(".search-wrapper");
 // Weatherapi key
 const forecastApiKey = "8d53ddacbb5b4e9e94795200230906";
 
-// Weatherapi URL
-const weatherUrl = "http://api.weatherapi.com/v1/forecast.json?key=8d53ddacbb5b4e9e94795200230906";
-
-const searchWrapper = document.querySelector(".search-wrapper");
-
-async function getForecast(city) {
-forecast_container.innerHTML = "";
-
-const response = await fetch(weatherUrl + `&q="${city}"` + `&days=4&aqi=no&alerts=no`);
-
-let data = await response.json();
-
-
+const forecast_container = document.createElement("div");
+forecast_container.classList.add("forecast-container")
 searchWrapper.appendChild(forecast_container);
 
-  for (let i = 0; i < 4; i++) {
-  
-    const forecast_card = document.createElement("div");
-    forecast_card.classList.add("forecast-card");
-  
-    const forecast_img = document.createElement("img");
-    forecast_img.classList.add("forecast-img");
-    forecast_img.src = "";
-  
-    const forecast_day = document.createElement("div");
-    forecast_day.classList.add("forecast-day");
-  
-    const forecast_max = document.createElement("div");
-    forecast_max.classList.add("max-temp");
-    forecast_max.innerText = "Day | ";
-  
-    const forecast_min = document.createElement("div");
-    forecast_min.classList.add("min-temp");
-    forecast_min.innerText = "Night | ";
-  
-    //Appends
-    forecast_card.appendChild(forecast_img);
-    forecast_card.appendChild(forecast_day);
-    forecast_card.appendChild(forecast_max);
-    forecast_card.appendChild(forecast_min);
-    forecast_container.appendChild(forecast_card);
-  };
+// Weatherapi URL
+const weatherUrl = "https://api.weatherapi.com/v1/forecast.json?key=8d53ddacbb5b4e9e94795200230906";
 
+async function getForecast(city) {
+    const response = await fetch(weatherUrl + `&q=${city}` + `&days=4&aqi=no&alerts=no`);
 
+    let data = await response.json();
 
+    /*
+    Creates the forecast cards & displays the data fetched.
+    Wanted to try out the forEach loop here.
+    Calling "&days=4" in the url.
+    */
+    let forecastArray = data.forecast.forecastday;
+    forecastArray.forEach(function(day) {
+        console.log(day);
+
+        const forecast_card = document.createElement("div");
+        forecast_card.classList.add("forecast-card");
+    
+        const forecast_img = document.createElement("img");
+        forecast_img.classList.add("forecast-img");
+        forecast_img.src = day.day.condition.icon;
+    
+        const forecast_day = document.createElement("div");
+        forecast_day.classList.add("forecast-day");
+        forecast_day.innerText = day.date;
+    
+        const forecast_max = document.createElement("div");
+        forecast_max.classList.add("max-temp");
+        forecast_max.innerText = "Day | "+ day.day.maxtemp_c + "°C";
+    
+        const forecast_min = document.createElement("div");
+        forecast_min.classList.add("min-temp");
+        forecast_min.innerText = "Night | "+ day.day.mintemp_c + "°C";
+
+        
+        forecast_container.appendChild(forecast_card);
+        forecast_card.appendChild(forecast_img);
+        forecast_card.appendChild(forecast_day);
+        forecast_card.appendChild(forecast_max);
+        forecast_card.appendChild(forecast_min);
+    });
 };
 
 // Eventlistener for the button / input.
@@ -169,19 +164,23 @@ let searchKey = document.getElementById("search");
 
 searchButton.addEventListener("click", (e) => {
   e.preventDefault();
-
+    forecast_container.innerHTML = "";
+    displayRows.innerHTML = "";
   getWeather(search.value);
   getForecast(search.value);
   
 });
 
-searchKey.addEventListener("keyup", (e) => {
-    forecast_container.innerHTML = "";
-    displayRows.innerHTML = "";
-
+searchKey.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-        e.preventDefault();
-        getWeather(search.value)
-        getForecast(search.value);
+      // Erases previous data when calling the functions again.
+      forecast_container.innerHTML = "";
+      displayRows.innerHTML = "";
+      getWeather(search.value)
+      getForecast(search.value);
+      // Erases the previous search data displaying
+    } else if ( e.key === "Backspace") {
+      forecast_container.innerHTML = "";
+      displayRows.innerHTML = "";
     }
 });
