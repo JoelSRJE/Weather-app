@@ -150,7 +150,6 @@ async function getForecast(city) {
         forecast_min.classList.add("min-temp");
         forecast_min.innerText = "Night | "+ day.day.mintemp_c + "°C";
 
-        
         forecast_container.appendChild(forecast_card);
         forecast_card.appendChild(forecast_img);
         forecast_card.appendChild(forecast_day);
@@ -184,3 +183,13 @@ searchKey.addEventListener("keydown", (e) => {
       displayRows.innerHTML = "";
     }
 });
+
+
+// Updates the data inside the input every 30min, IF you leave the city name you searched for.
+setInterval(() => {
+  forecast_container.innerHTML = "";
+  getWeather(search.value);
+  getForecast(search.value);
+}, 1000 * 60 * 30);
+
+/* Feel free to change the interval speed to verify this William */
