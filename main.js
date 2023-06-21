@@ -128,6 +128,7 @@ async function getForecast(city) {
     Calling "&days=4" in the url.
     */
     let forecastArray = data.forecast.forecastday;
+
     forecastArray.forEach(function(day) {
         console.log(day);
 
