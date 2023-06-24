@@ -15,14 +15,14 @@ const displayRows = document.querySelector(".display-rows");
 async function getWeather(city) {
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
     // Clears the console from previous data
-    console.clear();
+    
     let data = await response.json();
 
     // Updates city & temp, through the data from the api
     document.querySelector(".city").innerHTML = data.name;
     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°c";
 
-    // Switches the icons depending on weather
+    // Switches the icon in "display-day" depending on weather
     if (data.weather[0].main == "Clouds") {
         weatherImage.src = "images/clouds.png";
       } else if (data.weather[0].main == "Rain") {
@@ -106,9 +106,10 @@ async function getWeather(city) {
     document.querySelector(".visibility").innerHTML = data.visibility;
 }
 
+
+// Start of forecast
+
 const searchWrapper = document.querySelector(".search-wrapper");
-// Weatherapi key
-const forecastApiKey = "8d53ddacbb5b4e9e94795200230906";
 
 const forecast_container = document.createElement("div");
 forecast_container.classList.add("forecast-container")
@@ -118,17 +119,18 @@ searchWrapper.appendChild(forecast_container);
 const weatherUrl = "https://api.weatherapi.com/v1/forecast.json?key=8d53ddacbb5b4e9e94795200230906";
 
 async function getForecast(city) {
-    const response = await fetch(weatherUrl + `&q=${city}` + `&days=4&aqi=no&alerts=no`);
+    const response = await fetch(weatherUrl + `&q=${city}` + `&days=3&aqi=no&alerts=no`);
 
     let data = await response.json();
 
     /*
     Creates the forecast cards & displays the data fetched.
     Wanted to try out the forEach loop here.
-    Calling "&days=4" in the url.
+    Calling "&days=3" in the url. The maximum for free plan.
+    Decided to show the "current day" as well to fill in more cards generated
     */
     let forecastArray = data.forecast.forecastday;
-
+    console.log(forecastArray);
     forecastArray.forEach(function(day) {
         console.log(day);
 
@@ -186,11 +188,11 @@ searchKey.addEventListener("keydown", (e) => {
 });
 
 
-// Updates the data inside the input every 30min, IF you leave the city name you searched for.
+// Updates the data inside the input every 30min, IF you leave the city name you searched for inside.
 setInterval(() => {
   forecast_container.innerHTML = "";
   getWeather(search.value);
   getForecast(search.value);
 }, 1000 * 60 * 30);
 
-/* Feel free to change the interval speed to verify this William */
+/* Feel free to change the interval speed to verify this */

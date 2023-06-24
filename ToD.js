@@ -38,8 +38,12 @@ function displayDate() {
     document.getElementById("date").innerText = currentDate;
 }
 
-  // Updates time
-setInterval(displayTime, 1000)
-
-displayDate();
+// Simply calling the functions to display.
 updateDay();
+
+// Updates time
+setInterval(() => {
+  displayTime();
+  date.innerHTML = "";
+  displayDate();
+}, 1000);

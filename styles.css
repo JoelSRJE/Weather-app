@@ -19,8 +19,8 @@ body {
 }
 
 .display-day {
-    margin-left: 40%;
-    margin-top: 10%;
+    margin-left: 35%;
+    margin-top: 5%;
     width: 29em;
     max-height: 30.5em;
     border-radius: 50px;
@@ -81,7 +81,6 @@ body {
     margin-top: 1.4em;
 }
 
-
 .city {
     font-size: 2.4em;
 } 
@@ -101,7 +100,7 @@ body {
     width: 29em;
     height: 30.5em;
     margin-right: 60%;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .forecast-card {
@@ -146,7 +145,7 @@ body {
     justify-content: space-evenly;
     height: 4em;
     width: 27.375em;
-    margin-left: 40%;
+    margin-left: 35%;
     margin-top: 1em;
 }
 
@@ -167,4 +166,3 @@ body {
 ::placeholder {
     color: black;
 }
-
